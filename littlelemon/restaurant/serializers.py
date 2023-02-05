@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User, Group
 from .models import Menu, Booking
 
 
@@ -10,7 +11,8 @@ class MenuSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Booking
+        model = User
+        groups = Group.objects.filter(user__username=User.username)
         fields = ['url', 'username', 'email', 'groups']
 
 
